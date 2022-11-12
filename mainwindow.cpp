@@ -38,11 +38,13 @@ MainWindow::MainWindow (QWidget *parent)
     ui_->pLag->setValue(cur.lag);
     ui_->pThreshold->setValue(cur.threshold);
     ui_->pInfluence->setValue(cur.influence);
+    ui_->pReverse->setChecked(cur.reverse);
 
     connect(this, &MainWindow::dataChanged, demo_, &ThresholdingDemo::setInput);
     connect(ui_->pLag, SIGNAL(valueChanged(int)), demo_, SLOT(setLag(int)));
     connect(ui_->pThreshold, SIGNAL(valueChanged(double)), demo_, SLOT(setThreshold(double)));
     connect(ui_->pInfluence, SIGNAL(valueChanged(double)), demo_, SLOT(setInfluence(double)));
+    connect(ui_->pReverse, &QCheckBox::clicked, demo_, &ThresholdingDemo::setReverse);
     connect(demo_, &ThresholdingDemo::outputChanged, this, &MainWindow::displayOutput);
 
     ui_->actDataReset->trigger();
@@ -57,12 +59,17 @@ MainWindow::~MainWindow () {
 
 template <typename T>
 static QLineSeries * createLineSeries (const QVector<T> &values,
-                                       int from = 0,
+                                       int from = -1,
+                                       int to = -1,
                                        const QVector<T> &offsets = QVector<T>(),
                                        T offsetmul = (T)1)
 {
+    if (from == -1 && to == -1) {
+        from = 0;
+        to = values.size() - 1;
+    }
     QLineSeries *series = new QLineSeries();
-    for (auto k = from; k < values.size(); ++ k)
+    for (auto k = from; k <= to; ++ k)
         *series << QPointF(k, values[k] + (offsets.empty() ? 0 : offsetmul * offsets[k]));
     return series;
 }
@@ -85,9 +92,9 @@ void MainWindow::displayOutput (ThresholdingDemo::Output output) {
     QChart *ochart = cleared(ui_->chvOut->chart());
 
     QLineSeries *input = createLineSeries(output.input);
-    QLineSeries *mean = createLineSeries(output.mean, output.params.lag);
-    QLineSeries *hi = createLineSeries(output.mean, output.params.lag, output.stddev, output.params.threshold);
-    QLineSeries *lo = createLineSeries(output.mean, output.params.lag, output.stddev, -output.params.threshold);
+    QLineSeries *mean = createLineSeries(output.mean, output.outfrom, output.outto);
+    QLineSeries *hi = createLineSeries(output.mean, output.outfrom, output.outto, output.stddev, output.params.threshold);
+    QLineSeries *lo = createLineSeries(output.mean, output.outfrom, output.outto, output.stddev, -output.params.threshold);
     QAreaSeries *hilo = new QAreaSeries(hi, lo);
     QLineSeries *signal = createLineSeries(output.signal);
 

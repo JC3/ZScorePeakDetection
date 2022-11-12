@@ -26,9 +26,7 @@ private slots:
     void on_actDataReset_triggered();
     void on_actDataImport_triggered();
     void on_actLinkAlgorithm_triggered();
-
     void on_actLinkGitlab_triggered();
-
 signals:
     void dataChanged (QVector<float> data);
 private:
