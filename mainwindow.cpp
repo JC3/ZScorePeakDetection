@@ -42,13 +42,13 @@ MainWindow::MainWindow (QWidget *parent)
     ui_->pInfluence->setValue(cur.influence);
     ui_->pReverse->setChecked(cur.reverse);
 
+    connect(this, &MainWindow::dataChanged, [this]() { ui_->zoom->setZoomWindow(0, 1); });
     connect(this, &MainWindow::dataChanged, demo_, &ThresholdingDemo::setInput);
     connect(ui_->pLag, SIGNAL(valueChanged(int)), demo_, SLOT(setLag(int)));
     connect(ui_->pThreshold, SIGNAL(valueChanged(double)), demo_, SLOT(setThreshold(double)));
     connect(ui_->pInfluence, SIGNAL(valueChanged(double)), demo_, SLOT(setInfluence(double)));
     connect(ui_->pReverse, &QCheckBox::clicked, demo_, &ThresholdingDemo::setReverse);
     connect(demo_, &ThresholdingDemo::outputChanged, this, &MainWindow::displayOutput);
-    connect(this, &MainWindow::dataChanged, [this]() { ui_->zoom->setZoomWindow(0, 1); });
 
     ui_->actDataReset->trigger();
 
@@ -118,11 +118,9 @@ void MainWindow::displayOutput (ThresholdingDemo::Output output) {
     QValueAxis *ox = va(ochart, Qt::Horizontal), *oy = va(ochart, Qt::Vertical);
 
     int interval = std::max(1, qRound(output.input.size() / 40.0) * 10);
-    ax->setMin(0);
     ax->setTickType(QValueAxis::TicksDynamic);
     ax->setTickInterval(interval);
     ax->setLabelFormat("%d");
-    ox->setMin(0);
     ox->setTickType(QValueAxis::TicksDynamic);
     ox->setTickInterval(interval);
     ox->setLabelFormat("%d");
@@ -130,6 +128,9 @@ void MainWindow::displayOutput (ThresholdingDemo::Output output) {
     oy->setRange(-1.5, 1.5);
     achart->legend()->setVisible(false);
     ochart->legend()->setVisible(false);
+
+    // hackily init chart axes to current zoom level
+    on_zoom_zoomed(ui_->zoom->zoomFrom(), ui_->zoom->zoomTo());
 
 }
 

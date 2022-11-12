@@ -15,6 +15,8 @@ class AreaZoomWidget : public QWidget {
     Q_OBJECT
 public:
     explicit AreaZoomWidget(QWidget *parent = nullptr);
+    float zoomFrom () const { return from_; }
+    float zoomTo () const { return to_; }
 protected:
     void mousePressEvent (QMouseEvent *event);
     void mouseMoveEvent (QMouseEvent *event);
