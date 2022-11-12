@@ -1,0 +1,10 @@
+debug/
+release/
+*.json
+*_data/
+*.pro.user
+Makefile
+Makefile.*
+.qmake.stash
+ui_*.h
+.qtc_clangd/
