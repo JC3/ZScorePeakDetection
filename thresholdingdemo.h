@@ -22,7 +22,9 @@ public:
         int lag;
         float threshold;
         float influence;
-        Params () : lag(30), threshold(5), influence(0) { }
+        // extra experimental options
+        bool reverse;
+        Params () : lag(30), threshold(5), influence(0), reverse(false) { }
     };
     struct Output {
         QVector<float> input;
@@ -30,7 +32,8 @@ public:
         QVector<float> mean;
         QVector<float> stddev;
         QVector<int> signal;
-        void clear () { input.clear(); mean.clear(); stddev.clear(); signal.clear(); }
+        int outfrom, outto; // mean,stddev,signal valid indices, INCLUSIVE
+        void clear () { input.clear(); mean.clear(); stddev.clear(); signal.clear(); outfrom = 0; outto = -1; }
     };
     explicit ThresholdingDemo (QObject *parent = nullptr);
     Params params () const { return params_; }
@@ -40,13 +43,14 @@ public slots:
     void setLag (int lag) { params_.lag = lag; update(); }
     void setThreshold (double threshold) { params_.threshold = threshold; update(); }
     void setInfluence (double influence) { params_.influence = influence; update(); }
+    void setReverse (bool reverse) { params_.reverse = reverse; update(); }
 signals:
     void outputChanged (ThresholdingDemo::Output output);
 private:
     QVector<float> input_;
     Params params_;
     void update ();
-    static void threshold (const Params &params, Output &output, const QVector<float> &input);
+    static void threshold (const Params &params, Output &output, QVector<float> input);
 };
 
 #endif // THRESHOLDINGDEMO_H
