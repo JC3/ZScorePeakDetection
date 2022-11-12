@@ -46,6 +46,7 @@ MainWindow::MainWindow (QWidget *parent)
     connect(ui_->pThreshold, SIGNAL(valueChanged(double)), demo_, SLOT(setThreshold(double)));
     connect(ui_->pInfluence, SIGNAL(valueChanged(double)), demo_, SLOT(setInfluence(double)));
     connect(demo_, &ThresholdingDemo::outputChanged, this, &MainWindow::displayOutput);
+    connect(this, &MainWindow::dataChanged, [this]() { ui_->zoom->setZoomWindow(0, 1); });
 
     ui_->actDataReset->trigger();
 
@@ -124,6 +125,25 @@ void MainWindow::displayOutput (ThresholdingDemo::Output output) {
     ochart->legend()->setVisible(false);
 
 }
+
+
+void MainWindow::on_zoom_zoomed (float from, float to) {
+
+    static const auto va = [](QChart *chart, Qt::Orientation dir) {
+        return qobject_cast<QValueAxis*>(chart->axes(dir).first());
+    };
+
+    int count = demo_->size();
+    int minx = qRound(from * count);
+    int maxx = qRound(to * count);
+
+    QValueAxis *ax = va(ui_->chvAlgo->chart(), Qt::Horizontal);
+    QValueAxis *ox = va(ui_->chvOut->chart(), Qt::Horizontal);
+    ax->setRange(minx, maxx);
+    ox->setRange(minx, maxx);
+
+}
+
 
 void MainWindow::on_actDataReset_triggered () {
 

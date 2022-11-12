@@ -34,6 +34,7 @@ public:
     };
     explicit ThresholdingDemo (QObject *parent = nullptr);
     Params params () const { return params_; }
+    int size () const { return input_.size(); }
 public slots:
     void setInput (QVector<float> input) { input_ = input; update(); }
     void setLag (int lag) { params_.lag = lag; update(); }

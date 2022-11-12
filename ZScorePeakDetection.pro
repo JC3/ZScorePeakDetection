@@ -9,11 +9,13 @@ QT       += core gui widgets charts
 CONFIG += c++17
 
 SOURCES += \
+    areazoomwidget.cpp \
     main.cpp \
     mainwindow.cpp \
     thresholdingdemo.cpp
 
 HEADERS += \
+    areazoomwidget.h \
     mainwindow.h \
     thresholdingdemo.h
 
