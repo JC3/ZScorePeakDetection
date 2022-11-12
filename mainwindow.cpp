@@ -32,6 +32,8 @@ MainWindow::MainWindow (QWidget *parent)
 {
 
     ui_->setupUi(this);
+    ui_->chvAlgo->setRenderHint(QPainter::Antialiasing);
+    ui_->chvOut->setRenderHint(QPainter::Antialiasing);
     demo_ = new ThresholdingDemo(this);
 
     ThresholdingDemo::Params cur = demo_->params();
