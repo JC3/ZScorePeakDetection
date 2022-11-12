@@ -1,3 +1,14 @@
+//=============================================================================
+/**
+ * Author:  Jason Cipriani
+ * Website: https://github.com/JC3/ZScorePeakDetection
+ * License: https://github.com/JC3/ZScorePeakDetection/blob/master/LICENSE
+ *
+ * This is an implementation of the Robust Peak Detection Algorithm Using
+ * Z-Scores (Brackel, J.P.G. van) from https://stackoverflow.com/a/22640362.
+ */
+//=============================================================================
+
 #include "thresholdingdemo.h"
 #include <QMetaObject>
 #include <cmath>
@@ -23,7 +34,9 @@ void ThresholdingDemo::threshold (const Params &params,
                                   const QVector<float> &input)
 {
 
-    // adapted from https://stackoverflow.com/a/46956908/616460
+    // adapted from https://stackoverflow.com/a/46956908/616460.
+    // there were some bugs in that implementation which have been corrected here,
+    // as well as porting std::vector to QVector and some API changes.
 
     static const auto mean = [](const QVector<float> &vec, int from, int to) {
         float sum = 0;

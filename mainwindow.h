@@ -1,3 +1,11 @@
+//=============================================================================
+/**
+ * Author:  Jason Cipriani
+ * Website: https://github.com/JC3/ZScorePeakDetection
+ * License: https://github.com/JC3/ZScorePeakDetection/blob/master/LICENSE
+ */
+//=============================================================================
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -17,6 +25,10 @@ private slots:
     void displayOutput (ThresholdingDemo::Output output);
     void on_actDataReset_triggered();
     void on_actDataImport_triggered();
+    void on_actLinkAlgorithm_triggered();
+
+    void on_actLinkGitlab_triggered();
+
 signals:
     void dataChanged (QVector<float> data);
 private:

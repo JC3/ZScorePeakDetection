@@ -1,3 +1,11 @@
+//=============================================================================
+/**
+ * Author:  Jason Cipriani
+ * Website: https://github.com/JC3/ZScorePeakDetection
+ * License: https://github.com/JC3/ZScorePeakDetection/blob/master/LICENSE
+ */
+//=============================================================================
+
 #include "mainwindow.h"
 
 #include <QApplication>

@@ -1,3 +1,11 @@
+//=============================================================================
+/**
+ * Author:  Jason Cipriani
+ * Website: https://github.com/JC3/ZScorePeakDetection
+ * License: https://github.com/JC3/ZScorePeakDetection/blob/master/LICENSE
+ */
+//=============================================================================
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QChartView>
@@ -7,6 +15,7 @@
 #include <QValueAxis>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QDesktopServices>
 
 using namespace QtCharts;
 
@@ -149,5 +158,17 @@ void MainWindow::on_actDataImport_triggered () {
     if (data.size() <= demo_->params().lag)
         QMessageBox::information(this, "Note", "Lag is currently greater than the size of your data set.\nYou won't see anything until you decrease it.");
 
+}
+
+
+void MainWindow::on_actLinkAlgorithm_triggered()
+{
+    QDesktopServices::openUrl(QUrl("https://stackoverflow.com/a/22640362"));
+}
+
+
+void MainWindow::on_actLinkGitlab_triggered()
+{
+    QDesktopServices::openUrl(QUrl("https://github.com/JC3/ZScorePeakDetection"));
 }
 

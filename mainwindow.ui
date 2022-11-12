@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Robust Peak Detection Algorithm Using Z-Scores (Brackel, J.P.G. van)</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -131,7 +131,15 @@
     <addaction name="actDataImport"/>
     <addaction name="actDataReset"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>&amp;Links</string>
+    </property>
+    <addaction name="actLinkAlgorithm"/>
+    <addaction name="actLinkGitlab"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuHelp"/>
   </widget>
   <action name="actDataImport">
    <property name="text">
@@ -141,6 +149,16 @@
   <action name="actDataReset">
    <property name="text">
     <string>Initial Data</string>
+   </property>
+  </action>
+  <action name="actLinkAlgorithm">
+   <property name="text">
+    <string>&amp;Algorithm</string>
+   </property>
+  </action>
+  <action name="actLinkGitlab">
+   <property name="text">
+    <string>&amp;Gitlab Page</string>
    </property>
   </action>
  </widget>

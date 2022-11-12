@@ -1,3 +1,14 @@
+//=============================================================================
+/**
+ * Author:  Jason Cipriani
+ * Website: https://github.com/JC3/ZScorePeakDetection
+ * License: https://github.com/JC3/ZScorePeakDetection/blob/master/LICENSE
+ *
+ * This is an implementation of the Robust Peak Detection Algorithm Using
+ * Z-Scores (Brackel, J.P.G. van) from https://stackoverflow.com/a/22640362.
+ */
+//=============================================================================
+
 #ifndef THRESHOLDINGDEMO_H
 #define THRESHOLDINGDEMO_H
 
