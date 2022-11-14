@@ -9,7 +9,7 @@
  * with some experimental modifications by me:
  *
  *    - Option to process data set in reverse.
- *    - Option to find peaks in first [lag] data points.
+ *    - Absolute minimum level of a peak.
  */
 //=============================================================================
 
@@ -82,7 +82,7 @@ void ThresholdingDemo::threshold (const Params &params,
     stdFilter[lag] = stdDev(filteredY, avgFilter[lag], 0, lag);
 
     for (auto i = lag + 1; i < input.size(); i++) {
-        if (std::abs(input[i] - avgFilter[i-1]) > threshold * stdFilter[i-1]) {
+        if (std::abs(input[i]) >= params.minlevel && std::abs(input[i] - avgFilter[i-1]) > threshold * stdFilter[i-1]) {
             signls[i] = (input[i] > avgFilter[i-1]) ? 1 : -1;
             filteredY[i] = influence* input[i] + (1 - influence) * filteredY[i-1];
         } else {

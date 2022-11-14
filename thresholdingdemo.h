@@ -5,7 +5,11 @@
  * License: https://github.com/JC3/ZScorePeakDetection/blob/master/LICENSE
  *
  * This is an implementation of the Robust Peak Detection Algorithm Using
- * Z-Scores (Brackel, J.P.G. van) from https://stackoverflow.com/a/22640362.
+ * Z-Scores (Brackel, J.P.G. van) from https://stackoverflow.com/a/22640362
+ * with some experimental modifications by me:
+ *
+ *    - Option to process data set in reverse.
+ *    - Absolute minimum level of a peak.
  */
 //=============================================================================
 
@@ -24,7 +28,8 @@ public:
         float influence;
         // extra experimental options
         bool reverse;
-        Params () : lag(30), threshold(5), influence(0), reverse(false) { }
+        float minlevel;
+        Params () : lag(30), threshold(5), influence(0), reverse(false), minlevel(0) { }
     };
     struct Output {
         QVector<float> input;
@@ -44,6 +49,7 @@ public slots:
     void setThreshold (double threshold) { params_.threshold = threshold; update(); }
     void setInfluence (double influence) { params_.influence = influence; update(); }
     void setReverse (bool reverse) { params_.reverse = reverse; update(); }
+    void setMinLevel (double minlevel) { params_.minlevel = minlevel; update(); }
 signals:
     void outputChanged (ThresholdingDemo::Output output);
 private:
