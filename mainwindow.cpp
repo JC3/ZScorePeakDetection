@@ -41,6 +41,7 @@ MainWindow::MainWindow (QWidget *parent)
     ui_->pThreshold->setValue(cur.threshold);
     ui_->pInfluence->setValue(cur.influence);
     ui_->pReverse->setChecked(cur.reverse);
+    ui_->pMinLevel->setValue(cur.minlevel);
 
     connect(this, &MainWindow::dataChanged, [this]() { ui_->zoom->setZoomWindow(0, 1); });
     connect(this, &MainWindow::dataChanged, demo_, &ThresholdingDemo::setInput);
@@ -48,6 +49,7 @@ MainWindow::MainWindow (QWidget *parent)
     connect(ui_->pThreshold, SIGNAL(valueChanged(double)), demo_, SLOT(setThreshold(double)));
     connect(ui_->pInfluence, SIGNAL(valueChanged(double)), demo_, SLOT(setInfluence(double)));
     connect(ui_->pReverse, &QCheckBox::clicked, demo_, &ThresholdingDemo::setReverse);
+    connect(ui_->pMinLevel, SIGNAL(valueChanged(double)), demo_, SLOT(setMinLevel(double)));
     connect(demo_, &ThresholdingDemo::outputChanged, this, &MainWindow::displayOutput);
 
     ui_->actDataReset->trigger();
