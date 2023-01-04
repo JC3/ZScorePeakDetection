@@ -8,3 +8,4 @@ Makefile.*
 .qmake.stash
 ui_*.h
 .qtc_clangd/
+ZScorePeakDetection_resource.rc

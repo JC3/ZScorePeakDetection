@@ -4,6 +4,9 @@
 # License: https://github.com/JC3/ZScorePeakDetection/blob/master/LICENSE
 #==============================================================================
 
+QMAKE_TARGET_DESCRIPTION = "Z-Score Peak Detection"
+VERSION = 1.0.0.0
+
 QT       += core gui widgets charts
 
 CONFIG += c++17
@@ -22,9 +25,11 @@ HEADERS += \
 FORMS += \
     mainwindow.ui
 
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+
+unix:application.path = /opt/bin
+unix:application.files = ZScorePeakDetection
+unix:INSTALLS += application
+win32:RC_ICONS = chart.ico
 
 DISTFILES += \
     sample.txt \
