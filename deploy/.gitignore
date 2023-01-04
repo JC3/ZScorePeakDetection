@@ -1,0 +1,4 @@
+*
+!.gitignore
+!deploy-win.bat
+!installer-mingw64.nsi
